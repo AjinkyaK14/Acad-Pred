@@ -1,0 +1,44 @@
+.blockquote{
+	max-width: 600px;
+	margin: 10px 30px;
+	padding: 25px;
+	border: 1px solid #b0d2cb;
+	color: #ffffff;
+	box-sizing: border-box;
+	font-weight: bold;
+}
+
+.blockquote--bordered{
+	border-left-width: 10px;
+}
+
+.blockquote--quoted::before{
+	content: "\201c";
+	font-size: 100px;
+	color: #009578;
+	display: block;
+	margin-bottom: -40px;
+	margin-top: -20px;
+}
+
+.blockquote__text{
+	font-family: 'Gelasio' serif;
+	font-style: italic;
+	font-size: 2em;
+	line-height: 1.5;
+	margin: 0;
+}
+
+.blockquote__text:not(:last-child){
+	margin-bottom: 1em;
+}
+
+.blockquote__text--credit{
+	font-weight: bold;
+	font-style: normal;
+	text-align: right;
+}
+
+.blockquote__text--credit::before{
+	content: "\2014\0020";
+}

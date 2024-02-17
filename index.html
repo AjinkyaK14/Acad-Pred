@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>AcadPred</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="blockquote.css">
+    <link href="https://fonts.googleapis.com/css2?family=Gelasio:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
+
+    <style>
+       .styled-table {
+            border-collapse: collapse;
+            margin: 25px 0;
+            font-size: 0.9em;
+            font-family: sans-serif;
+            min-width: 400px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+        }
+
+        .styled-table thead tr {
+            background-color: #009879;
+            color: #ffffff;
+            text-align: left;
+        }       
+
+        table.styled-table {
+            margin-left: auto; 
+            margin-right: auto;
+        }
+
+        .styled-table th,
+        .styled-table td {
+            padding: 12px 15px;
+        }
+
+        .styled-table tbody tr {
+            border-bottom: 1px solid #dddddd;
+        }
+
+        .styled-table tbody tr:nth-of-type(even) {
+            background-color: #f3f3f3;
+        }
+
+        .styled-table tbody tr:last-of-type {
+            border-bottom: 2px solid #009879;
+        }
+
+        .styled-table tbody tr.active-row {
+            font-weight: bold;
+            color: #009879;
+        }
+
+        .space{
+            margin-top: 100px;
+        }
+        .ab{
+            margin-top: 50px;
+        }
+        .custom-selector{
+            position: relative;
+            display: inline-block;
+            font-size: 14px;
+        }
+        .custom-selector select{
+            width: 200px;
+            min-height: 35px;
+            background: white;
+            border-radius: 3px;
+            border: 2px solid;
+            outline: none;
+            padding: 0 10px;
+            width: 100%;
+            cursor: pointer;
+            margin-top: 30px;
+            appearance: none;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="main" style="background: linear-gradient(to top, rgba(0,0,0,0.5)50%,rgba(0,0,0,0.5)50%),url(c.jpg); background-size: cover;">
+        <div class="navbar">
+            <div class="icon">
+                <h2 class="logo">AcadPred</h2>
+            </div>
+            <div class="menu">
+                <ul>
+                    <li><a href="about.html">ABOUT</a></li>
+                    <li><a href="#">SERVICE</a></li>
+                    <li><a href="#">CONTACT</a></li>
+                </ul>
+            </div>
+        </div> 
+        <div class="content">
+            <div class="ab">
+            <blockquote class="blockquote blockquote--bordered blockquote--quoted">
+                <p class="blockquote__text">
+                    STEP IN YOUR ROAD TO SUCCESS, EMBRACE THE CHANGE, AND RELISH THE EXPERIENCE......
+                </p>
+                <p class="blockquote__text blockquote__text--credit">
+                    Anonymous
+                </p>
+            </blockquote>
+            
+            <div class="form">
+                <h3> Please Enter Your Details </h3>
+                <input type="text" name="name" id="name" placeholder="Enter Your Name">
+                <input type="number" name="percentile" id="percentile" placeholder="Enter Percentile">
+                <label class="custom-selector">
+                <select name="category" id="category">
+                    <option value="">Select Your Category</option>
+                    <option value="ews">ews</option> 
+                    <option value="gobc">gobc</option>
+                    <option value="gopen">gopen</option>
+                    <option value="gsc">gsc</option>
+                </select>
+                </label>
+                <button class="btnn" id="submit"><a href="#">SUBMIT</a></button>
+                <div class="icons">
+                    <a href="https://www.facebook.com/sahil.kalal.988/"><ion-icon name="logo-facebook"></ion-icon></a>
+                    <a href="https://www.instagram.com/a__kadgi__47/"><ion-icon name="logo-instagram"></ion-icon></a>
+                    <a href="#"><ion-icon name="logo-twitter"></ion-icon></a>
+                    <a href="#"><ion-icon name="logo-google"></ion-icon></a>
+                    <a href="#"><ion-icon name="logo-skype"></ion-icon></a>
+                </div>
+            </div>
+            </div>
+        </div>   
+    </div>
+<div class="space">   
+<table class="styled-table" id="table">
+    <thead>
+        <tr>
+            <th>College Name</th>
+            <th>College Code</th>
+            <th>Fees</th>
+            <th>Branch</th>
+            <th>Cutoff</th>
+            <th>Category</th>
+            <th>Location</th>
+            <th>Link to College's Official Website</th>
+        </tr>
+    </thead>
+</table>
+</div> 
+    <script type="text/javascript">
+        $("#submit").click(function()
+        {
+            var formData = {
+                name: $("#name").val(),
+                percentile: $("#percentile").val(),
+                category: $("#category").val(),
+            };
+            $.ajax({
+                url:"ajax_college.php",
+                type: "POST",
+                data: formData,
+                dataType: "JSON",
+                success:function(data)
+                {
+                    show(data);
+                }
+            });
+            function show(a){
+                let table = document.getElementById('table');
+                for(let i=0 ; i<a.length; i++){
+                    let obj = a[i];
+                    let row = document.createElement('tr');
+                    let cn = document.createElement('td');  // college name
+                    let cc = document.createElement('td'); // college code
+                    let fee = document.createElement('td');  //fees
+                    let branch = document.createElement('td');  //branch
+                    let ccut = document.createElement('td');  //college cutoff
+                    let cat = document.createElement('td');  //category
+                    let cl = document.createElement('td');  //link
+                    let city = document.createElement('td');  // city  
+
+                    cn.innerHTML = obj.CollegeName;
+                    cc.innerHTML = obj.CollegeCode;
+                    fee.innerHTML = obj.Fees;
+                    branch.innerHTML = obj.Branch;
+                    ccut.innerHTML = obj.CutOff;
+                    cat.innerHTML = obj.Category;
+                    city.innerHTML = obj.link;
+                    cl.innerHTML = obj.location;
+
+                    row.appendChild(cn);
+                    row.appendChild(cc);
+                    row.appendChild(fee);
+                    row.appendChild(branch);
+                    row.appendChild(ccut);
+                    row.appendChild(cat);
+                    row.appendChild(cl);
+                    row.appendChild(city);
+
+                    table.appendChild(row);
+                }
+            }
+        })
+    </script>
+
+    <script src="https://unpkg.com/ionicons@5.4.0/dist/ionicons.js"></script>
+</body>
+</html>
